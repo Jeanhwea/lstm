@@ -18,7 +18,7 @@ def load_data(filename, seq_len, normalise_window):
     result = []
     for index in range(len(data) - sequence_length):
         result.append(data[index: index + sequence_length])
-    
+
     if normalise_window:
         result = normalise_windows(result)
 
@@ -33,7 +33,7 @@ def load_data(filename, seq_len, normalise_window):
     y_test = result[int(row):, -1]
 
     x_train = np.reshape(x_train, (x_train.shape[0], x_train.shape[1], 1))
-    x_test = np.reshape(x_test, (x_test.shape[0], x_test.shape[1], 1))  
+    x_test = np.reshape(x_test, (x_test.shape[0], x_test.shape[1], 1))
 
     return [x_train, y_train, x_test, y_test]
 
@@ -47,19 +47,13 @@ def normalise_windows(window_data):
 def build_model(layers):
     model = Sequential()
 
-    model.add(LSTM(
-        input_dim=layers[0],
-        output_dim=layers[1],
-        return_sequences=True))
+    model.add(LSTM(input_dim=layers[0], output_dim=layers[1], return_sequences=True))
     model.add(Dropout(0.2))
 
-    model.add(LSTM(
-        layers[2],
-        return_sequences=False))
+    model.add(LSTM(layers[2], return_sequences=False))
     model.add(Dropout(0.2))
 
-    model.add(Dense(
-        output_dim=layers[3]))
+    model.add(Dense(output_dim=layers[3]))
     model.add(Activation("linear"))
 
     start = time.time()
@@ -95,3 +89,4 @@ def predict_sequences_multiple(model, data, window_size, prediction_len):
             curr_frame = np.insert(curr_frame, [window_size-1], predicted[-1], axis=0)
         prediction_seqs.append(predicted)
     return prediction_seqs
+
