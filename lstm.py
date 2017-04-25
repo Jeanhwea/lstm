@@ -44,6 +44,8 @@ def normalise_windows(window_data):
         normalised_data.append(normalised_window)
     return normalised_data
 
+
+# [1, 50, 100, 1]
 def build_model(layers):
     model = Sequential()
 

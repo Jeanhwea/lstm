@@ -48,3 +48,4 @@ if __name__=='__main__':
 
     print('Training duration (s) : ', time.time() - global_start_time)
     plot_results_multiple(predictions, y_test, 50)
+
